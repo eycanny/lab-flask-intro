@@ -46,6 +46,16 @@ def say_hello():
         <h1>Hi There!</h1>
         <form action="/greet">
           What's your name? <input type="text" name="person">
+          </form>
+          <form>
+            <label for="compliment-select">Choose your compliment!</label>
+            <select name="compliment" id="compliment-select">
+            <option value="ducky">Ducky</option>
+            <option value="neato">Neato</option>
+            <option value="oh-so-not-meh">Oh-so-not-meh</option>
+            </select>
+          </form>
+          <form>
           <input type="submit" value="Submit">
         </form>
       </body>
