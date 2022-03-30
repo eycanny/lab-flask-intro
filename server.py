@@ -14,6 +14,11 @@ AWESOMENESS = [
     'wonderful', 'smashing', 'lovely']
 
 
+STINKINESS = [
+  'a rude ape', 'smelly', 'a jerk', 'a dipstick', 'a dingbat', 'stupid',
+  'a bonehead', 'a dummy', 'undesirable', 'dirty']
+
+
 @app.route('/')
 def start_here():
     """Home page."""
@@ -44,45 +49,78 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-      <form action="/greet">
-          What's your name? <input type="text" name="person">
-          <!--<form action="/greet">-->
-            <label for="compliment-select">Choose your compliment!</label>
-            <select name="compliment" id="compliment-select">
-            <option value="ducky">Ducky</option>
-            <option value="neato">Neato</option>
-            <option value="oh-so-not-meh">Oh-so-not-meh</option>
-            </select>
-          <!--</form>-->
-          <!--<form action="/greet">-->
-          <input type="submit" value="Submit">
-          <!--</form>-->
-      </form>
+          <form action="/compliment">
+          What's your name? <input type="text" name="person"><br>
+            Click this button if you want a compliment! <input type="submit">
+          </form>
+          <br>
+          <form action="/diss">
+          What's your name? <input type="text" name="person"><br>
+            Click this button if you want a diss! <input type="submit">
+          </form>
       </body>
     </html>
     """
 
 
-@app.route('/greet')
-def greet_person():
-    """Get user by name."""
+# @app.route('/greet')
+# def greet_person():
+#     """Get user by name."""
 
-    player = request.args.get("person")
+#     player = request.args.get("person")
 
-    compliment = request.args.get("compliment")
+#     compliment = request.args.get("compliment")
+
+#     return f"""
+#     <!doctype html>
+#     <html>
+#       <head>
+#         <title>A Compliment</title>
+#       </head>
+#       <body>
+#         Hi, {player}! I think you're {compliment}!
+#       </body>
+#     </html>
+#     """
+
+@app.route("/compliment")
+def get_complimented():
+    """Compliment user by name."""
+
+    user = request.args.get("person")
+    compliment = choice(AWESOMENESS)
 
     return f"""
-    <!doctype html>
-    <html>
-      <head>
-        <title>A Compliment</title>
-      </head>
-      <body>
-        Hi, {player}! I think you're {compliment}!
-      </body>
-    </html>
-    """
+      <!doctype html>
+        <html>
+          <head>
+            <title>A Compliment</title>
+          </head>
+          <body>
+          Hi {user}! I think you're {compliment}!
+          </body>
+        </html>
+      """
 
+
+@app.route("/diss")
+def get_dissed():
+    """Diss user by name."""
+
+    user = request.args.get("person")
+    diss = choice(STINKINESS)
+
+    return f"""
+      <!doctype html>
+        <html>
+          <head>
+            <title>A Compliment</title>
+          </head>
+          <body>
+          Hi {user}! I think you're {diss}!
+          </body>
+        </html>
+      """
 
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
